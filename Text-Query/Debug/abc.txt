@@ -1,0 +1,18 @@
+istream& getline (char* s, streamsize n );
+istream& getline (char* s, streamsize n, char delim );
+Get line
+Extracts characters from the stream as unformatted input and stores them into s as a c-string, until either the extracted character is the delimiting character, or n characters have been written to s (including the terminating null character).
+
+The delimiting character is the newline character ('\n') for the first form, and delim for the second: when found in the input sequence, it is extracted from the input sequence, but discarded and not written to s.
+
+The function will also stop extracting characters if the end-of-file is reached. If this is reached prematurely (before either writing n characters or finding delim), the function sets the eofbit flag.
+
+The failbit flag is set if the function extracts no characters, or if the delimiting character is not found once (n-1) characters have already been written to s. Note that if the character that follows those (n-1) characters in the input sequence is precisely the delimiting character, it is also extracted and the failbit flag is not set (the extracted sequence was exactly n characters long).
+
+A null character ('\0') is automatically appended to the written sequence if n is greater than zero, even if an empty string is extracted.
+
+Internally, the function accesses the input sequence by first constructing a sentry object (with noskipws set to true). Then (if good), it extracts characters from its associated stream buffer object as if calling its member functions sbumpc or sgetc, and finally destroys the sentry object before returning.
+
+The number of characters successfully read and stored by this function can be accessed by calling member gcount.
+
+This function is overloaded for string objects in header <string>: See getline(string).
